@@ -1,8 +1,10 @@
 import React from 'react'
+import  './Styling/Create.css'
+
 
 function Create() {
   return (
-    <div>
+    <div className='create-product-form'>
            <form >
           <div className="form-group">
             <label htmlFor="exampleInputName">Product Name</label>

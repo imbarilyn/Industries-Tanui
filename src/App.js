@@ -33,10 +33,10 @@ function App() {
 }, []);
 
 
-  const addProductHandler = (newProduct) =>{
-    const add = {...products, newProduct}
-    setProducts(add);
-  }
+  // const addProductHandler = (newProduct) =>{
+  //   const add = {...products, newProduct}
+  //   setProducts(add);
+  // }
   return (
     <div className="App">
        <div className='navbar_container'>
@@ -59,7 +59,7 @@ function App() {
       <Routes>
         <Route path  ="/" element ={<Home />} />
         <Route path="/products" element={<ProductContainer products={products} />} />
-        <Route path  = "/create"  element ={< Create addProducts = {addProductHandler}/>} />
+        <Route path  = "/create"  element ={< Create getProducts= {getProducts} setProducts = {setProducts} products ={products}/>} />
       </Routes>
 
       <div className='footer_copyright'>

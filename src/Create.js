@@ -1,40 +1,43 @@
 import React from 'react'
 import  './Styling/Create.css'
 import { useState } from'react';
-import  { useNavigate } from  'react-router-dom'
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from './fireb-config'
+import { useNavigate } from 'react-router-dom';
 
 
-function Create(addProducts) {
-    const [formData, setFormData] = useState({
-        name: '',
-        description: '',
-        price: '',
-        quantity: ''
-    })
+
+function Create({setProducts, products, getProducts}) {
+    const [product_name, setProductName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
 
     const navigate = useNavigate();
-    const submitHandler =(e) =>{
-        e.preventDefault();
-        fetch("/products", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(resp =>resp.json())
-        .then(data => {setFormData({
-            name: '',
-            description: '',
-            price: '',
-            quantity: '',
-        });
-        addProducts(data);
-        alert("You added a new product")
-        navigate("/products")
 
-        })
-    }
+
+ const submitHandler =async(e) =>{
+        e.preventDefault();
+        const formData = {
+            product_name,
+            description,
+            price,
+            quantity
+         }
+        //  products.push(formData);
+
+        await addDoc(collection(db, "products"), {
+            ...formData
+          })
+
+
+setProducts(products)
+        
+getProducts();
+       
+        }
+     
+    
   return (
     <div className='create-product-form'>
            <form onSubmit={submitHandler}>
@@ -45,7 +48,8 @@ function Create(addProducts) {
                   className="form-control" 
                   id="InputProductName" 
                   placeholder="Enter product name" 
-                  onChange={(e) =>setFormData({...formData, name: e.target.value})}
+                  value = {product_name}
+                  onChange={(e) =>setProductName(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -54,28 +58,32 @@ function Create(addProducts) {
                   type="text"
                   className="form-control" 
                   id="InputProductDescription" 
-                  onChange={(e) =>setFormData({...formData, description: e.target.value})}
+                  value ={description}
+                  onChange={(e) =>setDescription(e.target.value)}
             />
           </div>
           <div className="form-group">
             <label htmlFor="exampleInputEpiryDate">Price</label>
             <input
                   type="number"
-                  class="form-control" 
-                  id="InputPrice" onChange={(e) =>setFormData({...formData, price: e.target.value})}
+                  className="form-control" 
+                  id="InputPrice" 
+                  value ={price}
+                  onChange={(e) =>setPrice(e.target.value)}
               />              
           </div>  
           <div className="form-group">
             <label htmlFor="exampleInputEpiryDate">Quantity</label>
             <input
                   type="number"
-                  class="form-control" 
+                  className="form-control" 
                   id="InputQuantity" 
-                  onChange={(e) =>setFormData({...formData, quantity: e.target.value})}
+                  value ={quantity}
+                  onChange={(e) =>setQuantity(e.target.value)}
               />
               
           </div>      
-          <button  type="submit" class="btn btn-success"  >Submit</button>
+          <button  type="submit" className="btn btn-success"  onClick={()=>navigate("/products")}>Submit</button>
           
       </form>
     </div>

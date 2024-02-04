@@ -8,20 +8,34 @@ import Products from "./Products";
 import './Styling/Home.css'
 import { useEffect, useState } from 'react';
 import ProductContainer from './ProductContainer';
+import { db } from './fireb-config'
+import { collection, getDocs } from 'firebase/firestore';
 
 function App() {
   const navigate = useNavigate()
-  const [records, setRecords] = useState([]);
+  const [products, setProducts] = useState([]);
+  const productsCollection = collection(db, "products");
 
-  useEffect(()=>{
-    fetch('./products')
-    .then(resp => resp.json())
-    .then(setRecords)
-  }, [])
+  // useEffect(()=>{
+  //   fetch('./products')
+  //   .then(resp => resp.json())
+  //   .then(setProducts)
+  // }, [])
+  const getProducts = async ()=>{
+    const querySnapshot = await getDocs(collection(db, "products"));
+    const products = querySnapshot.docs.map(doc =>({id:doc.id, ...doc.data()}))
+    setProducts(products);
+    console.log(products)
+  }
+
+  useEffect(() => {
+    getProducts();
+}, []);
+
 
   const addProductHandler = (newProduct) =>{
-    const add = {...records, newProduct}
-    setRecords(add);
+    const add = {...products, newProduct}
+    setProducts(add);
   }
   return (
     <div className="App">
@@ -41,10 +55,10 @@ function App() {
                
             </nav>
         </div>
+        
       <Routes>
         <Route path  ="/" element ={<Home />} />
-        <Route  path = "/products" element ={<Products passProduct = {records} />}/>
-        {/* <Route path  = "/product-container"  element ={<ProductContainer passProducts = {records}/>} /> */}
+        <Route path="/products" element={<ProductContainer products={products} />} />
         <Route path  = "/create"  element ={< Create addProducts = {addProductHandler}/>} />
       </Routes>
 

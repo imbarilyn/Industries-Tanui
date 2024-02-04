@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Home from './Home';
+// import { Link } from 'react-router-dom'
+import { MdOutlineFactory } from "react-icons/md";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <div className='navbar_container'>
+            <nav className='navbar_left'>
+                <li><MdOutlineFactory style={{fontSize:"2rem"}}/></li>
+            </nav>
+            <nav className='navbar_right'>
+                {/* <li><Link to ="/contracts"><button>Contracts</button></Link></li> */}
+                <li><button>User</button></li>
+                <li><button>Log out</button></li>
+            </nav>
+        </div>
+      <Home />
+    
     </div>
   );
 }

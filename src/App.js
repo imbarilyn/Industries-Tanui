@@ -58,6 +58,7 @@ function App() {
         
       <Routes>
         <Route path  ="/" element ={<Home />} />
+        <Route path="*" element={<Products setProducts ={setProducts}  products ={products}/>} />
         <Route path="/products" element={<ProductContainer products={products} />} />
         <Route path  = "/create"  element ={< Create getProducts= {getProducts} setProducts = {setProducts} products ={products}/>} />
       </Routes>

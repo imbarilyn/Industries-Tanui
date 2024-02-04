@@ -1,8 +1,10 @@
 
 import './App.css';
 import Home from './Home';
-// import { Link } from 'react-router-dom'
+import { Link , Routes, Route, BrowserRouter} from 'react-router-dom'
 import { MdOutlineFactory } from "react-icons/md";
+import  Create from "./Create";
+import Products from "./Products";
 
 function App() {
   return (
@@ -12,12 +14,18 @@ function App() {
                 <li><MdOutlineFactory style={{fontSize:"2rem"}}/></li>
             </nav>
             <nav className='navbar_right'>
-                {/* <li><Link to ="/contracts"><button>Contracts</button></Link></li> */}
+                <li><Link to ="/products"><button>Products</button></Link></li>
                 <li><button>User</button></li>
                 <li><button>Log out</button></li>
+               
             </nav>
         </div>
-      <Home />
+      <Routes>
+        <Route path  ="/" element ={<Home />} />
+        <Route path  = "/products"  element ={<Products />} />
+        <Route path  = "/create"  element ={< Create/>} />
+      </Routes>
+
     
     </div>
   );

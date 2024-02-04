@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link } from 'react-router-dom'
 
-function Products({product}) {
+function Products( products ) {
+    const {id, product_name, description, price, quantity} = products
   return (
     <div className='main-content'>
     <div className='contracts-top'style={{float: "right"}}>
@@ -27,21 +28,20 @@ function Products({product}) {
           </thead>
           <tbody> 
             {
-              product.map((i, j) =>(
                 <tr>             
-                <td>{i.id}</td>
-                <td>{i.name}</td>
-                <td>{i.description}</td>
-                <td>{i.price}</td> 
-                <td>{i.quantity}</td>
+                <td>{id}</td>
+                <td>{product_name}</td>
+                <td>{description}</td>
+                <td>{price}</td> 
+                <td>{quantity}</td>
                 <td>
-                  <button  type="button" class="btn btn-outline-primary" style={{margin: "4px"}}>Update</button>
-                  <button type="button" class="btn btn-outline-danger">Delete</button>
+                  <button  type="button" className="btn btn-outline-primary" style={{margin: "4px"}}>Update</button>
+                  <button type="button" className="btn btn-outline-danger">Delete</button>
                 </td>
               </tr>
 
-              )
-              )
+              
+              
              
             }
          

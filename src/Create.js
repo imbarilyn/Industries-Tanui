@@ -1,15 +1,18 @@
 import React from 'react'
 import  './Styling/Create.css'
 import { useState } from'react';
+import  { useNavigate } from  'react-router-dom'
 
 
-function Create() {
+function Create(addProducts) {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         price: '',
-        quantity: '',
+        quantity: ''
     })
+
+    const navigate = useNavigate();
     const submitHandler =(e) =>{
         e.preventDefault();
         fetch("/products", {
@@ -20,8 +23,16 @@ function Create() {
             body: JSON.stringify(formData)
         })
         .then(resp =>resp.json())
-        .then(data => {
-            console.log(data);
+        .then(data => {setFormData({
+            name: '',
+            description: '',
+            price: '',
+            quantity: '',
+        });
+        addProducts(data);
+        alert("You added a new product")
+        navigate("/products")
+
         })
     }
   return (
@@ -64,7 +75,7 @@ function Create() {
               />
               
           </div>      
-          <button type="submit" class="btn btn-primary" >Submit</button>
+          <button  type="submit" class="btn btn-success"  >Submit</button>
           
       </form>
     </div>

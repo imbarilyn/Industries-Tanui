@@ -5,6 +5,7 @@ import { Link , Routes, Route, BrowserRouter} from 'react-router-dom'
 import { MdOutlineFactory } from "react-icons/md";
 import  Create from "./Create";
 import Products from "./Products";
+import './Styling/Home.css'
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
         <Route path  = "/products"  element ={<Products />} />
         <Route path  = "/create"  element ={< Create/>} />
       </Routes>
+
+      <div className='footer_copyright'>
+                <small>&copy;Tanui Industries. All rights reserved.</small>
+            </div>
 
     
     </div>

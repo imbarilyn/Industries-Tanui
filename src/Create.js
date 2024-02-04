@@ -1,11 +1,32 @@
 import React from 'react'
 import  './Styling/Create.css'
+import { useState } from'react';
 
 
 function Create() {
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        price: '',
+        quantity: '',
+    })
+    const submitHandler =(e) =>{
+        e.preventDefault();
+        fetch("/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(resp =>resp.json())
+        .then(data => {
+            console.log(data);
+        })
+    }
   return (
     <div className='create-product-form'>
-           <form >
+           <form onSubmit={submitHandler}>
           <div className="form-group">
             <label htmlFor="exampleInputName">Product Name</label>
             <input 
@@ -13,6 +34,7 @@ function Create() {
                   className="form-control" 
                   id="InputProductName" 
                   placeholder="Enter product name" 
+                  onChange={(e) =>setFormData({...formData, name: e.target.value})}
             />
           </div>
           <div className="form-group">
@@ -21,6 +43,7 @@ function Create() {
                   type="text"
                   className="form-control" 
                   id="InputProductDescription" 
+                  onChange={(e) =>setFormData({...formData, description: e.target.value})}
             />
           </div>
           <div className="form-group">
@@ -28,7 +51,7 @@ function Create() {
             <input
                   type="number"
                   class="form-control" 
-                  id="InputPrice" 
+                  id="InputPrice" onChange={(e) =>setFormData({...formData, price: e.target.value})}
               />              
           </div>  
           <div className="form-group">
@@ -37,6 +60,7 @@ function Create() {
                   type="number"
                   class="form-control" 
                   id="InputQuantity" 
+                  onChange={(e) =>setFormData({...formData, quantity: e.target.value})}
               />
               
           </div>      

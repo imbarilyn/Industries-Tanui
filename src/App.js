@@ -1,18 +1,24 @@
 
 import './App.css';
 import Home from './Home';
-import { Link , Routes, Route, BrowserRouter} from 'react-router-dom'
+import { Link , Routes, Route, BrowserRouter, useNavigate} from 'react-router-dom'
 import { MdOutlineFactory } from "react-icons/md";
 import  Create from "./Create";
 import Products from "./Products";
 import './Styling/Home.css'
 
 function App() {
+  const navigate = useNavigate()
   return (
     <div className="App">
        <div className='navbar_container'>
             <nav className='navbar_left'>
-                <li><MdOutlineFactory style={{fontSize:"2rem"}}/></li>
+                <Link></Link>
+                <li>
+                  <button  onClick  = {()=>navigate("/")} style ={{background: "transparent", border:"none", color: "#fff"}}>
+                    <MdOutlineFactory style={{fontSize:"2rem"}}/>
+                  </button>
+                </li>
             </nav>
             <nav className='navbar_right'>
                 <li><Link to ="/products"><button>Products</button></Link></li>

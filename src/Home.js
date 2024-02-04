@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate} from 'react-router-dom'
-import './Styling/Home.css'
+
 
 function Home() {
     const navigate = useNavigate()
@@ -14,10 +14,6 @@ function Home() {
                 <div>
                     <button className='expired_contracts' onClick={() => navigate('/create')}>Add Products</button>
                 </div>
-            </div>
-            
-            <div className='footer_copyright'>
-                <small>&copy;Tanui Industries. All rights reserved.</small>
             </div>
         </div>
     )
